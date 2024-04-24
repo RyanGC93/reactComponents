@@ -1,9 +1,10 @@
 import "./styles.css";
-import LandingPage from '../components/LandingPage'
+import LandingPage from "./components/LandingPage";
+import LoginPage from "./components/LoginPage/LoginPage";
 export default function App() {
   return (
     <div className="App">
-      <LandingPage/>
+      <LoginPage />
     </div>
   );
 }
