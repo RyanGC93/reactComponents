@@ -5,7 +5,16 @@
   height: 100vh;
 }
 
+.login-image {
+  position: absolute;
+  opacity: 0.5;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
 .login-form {
+  position: absolute;
   width: 300px;
   padding: 20px;
   border-radius: 8px;
@@ -50,4 +59,12 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333333;
+}
+
+.or-separator {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #333333;
+  height: 1px;
 }

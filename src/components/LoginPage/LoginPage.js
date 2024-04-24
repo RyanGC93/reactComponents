@@ -13,6 +13,12 @@ function LoginPage() {
 
   return (
     <div className="login-container">
+      <img
+        src="https://images.unsplash.com/photo-1505455184862-554165e5f6ba?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Woman holding yellow petaled flowers"
+        className="login-image"
+      />
+
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
         <div className="form-group">
@@ -36,6 +42,12 @@ function LoginPage() {
           />
         </div>
         <button type="submit">Login</button>
+        <div className="or-separator"></div>
+        <button type="submit"> Demo Login</button>
+        <h3>
+          {" "}
+          Don't have an account? <a href="/signup">Sign Up</a>
+        </h3>
       </form>
     </div>
   );
