@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import "./LoginPage.css"; // Import CSS file for styling
+import { NavLink, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/firebase";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
     // Here you can add login functionality
+    signInWithEmailAndPassword(auth, username, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navigate("/");
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
     console.log("Logging in with:", username, password);
   };
 
@@ -41,7 +57,9 @@ function LoginPage() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" onClick={handleLogin}>
+          Login
+        </button>
         <div className="or-separator"></div>
         <button type="submit"> Demo Login</button>
         <h3>
