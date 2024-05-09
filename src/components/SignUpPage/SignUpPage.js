@@ -49,7 +49,9 @@ function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="signup-button">
+        <button type="submit" 
+        onClick={onSubmit}
+        className="signup-button">
           Sign Up
         </button>
       </form>
