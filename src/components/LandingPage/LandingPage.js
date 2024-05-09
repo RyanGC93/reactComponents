@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React from "react";
+import "./LandingPage.css";
 function LandingPage() {
   return (
     <div className="landing-page">
@@ -10,7 +10,10 @@ function LandingPage() {
       <main>
         <section>
           <h2>About Us</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula velit nec tortor faucibus, ac vestibulum massa vestibulum.</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+            vehicula velit nec tortor faucibus, ac vestibulum massa vestibulum.
+          </p>
         </section>
         <section>
           <h2>Features</h2>
