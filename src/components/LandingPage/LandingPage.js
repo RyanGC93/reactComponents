@@ -1,12 +1,16 @@
 import React from 'react'
 import './LandingPage.css'
+import Card from '../Card/Card'
+import Map from '../Map/Map'
 function LandingPage() {
   return (
     <div className="landing-page">
+      <Map/>
       <header>
         <h1>Welcome to My Landing Page</h1>
         <p>This is a basic example of a React landing page.</p>
       </header>
+          <Card/>
       <main>
         <section>
           <h2>About Us</h2>
