@@ -9,17 +9,7 @@ import {
 
 import MarkerComponent from './markers'
 
-let geoUrl = null // Declare a global variable
-
-import('./features.json')
-  .then((data) => {
-    geoUrl = data.default // Assign the JSON data to the global variable
-    console.log(geoUrl) // Use or log the data
-  })
-  .catch((error) => console.error('Error loading JSON:', error))
-
-// Later in your code, you can access geoUrl
-console.log(geoUrl) // Note: This will be null until the import and assignment are complete
+const geoUrl = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
 // coordinates are stored as >> [lon,lat]
 const rounded = (num) => {
@@ -68,42 +58,35 @@ const MapChart = ({ setTooltipContent, isChecked }) => {
               <>
                 <Geographies geography={geoUrl}>
                   {({ geographies }) =>
-                    geographies.map(
-                      (geo) => (
-                        console.log(geo, 'geo'),
-                        (
-                          <Geography
-                            key={geo.rsmKey}
-                            geography={geo}
-                            onMouseEnter={() => {
-                              console.log(geo, 'geo')
-                              const { NAME, POP_EST, ABBREV } = geo.properties
-                              console.log(geo.properties, 'geo')
-                              setTooltipContent(
-                                `${NAME} — ${rounded(POP_EST)} - ${ABBREV}`
-                              )
-                            }}
-                            onMouseLeave={() => {
-                              setTooltipContent('')
-                            }}
-                            style={{
-                              default: {
-                                fill: '#D6D6DA',
-                                outline: 'none',
-                              },
-                              hover: {
-                                fill: '#F53',
-                                outline: 'none',
-                              },
-                              pressed: {
-                                fill: '#E42',
-                                outline: 'none',
-                              },
-                            }}
-                          />
-                        )
-                      )
-                    )
+                    geographies.map((geo) => (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        onMouseEnter={() => {
+                          const { NAME, POP_EST, ABBREV } = geo.properties
+                          setTooltipContent(
+                            `${NAME} — ${rounded(POP_EST)} - ${ABBREV}`
+                          )
+                        }}
+                        onMouseLeave={() => {
+                          setTooltipContent('')
+                        }}
+                        style={{
+                          default: {
+                            fill: '#D6D6DA',
+                            outline: 'none',
+                          },
+                          hover: {
+                            fill: '#F53',
+                            outline: 'none',
+                          },
+                          pressed: {
+                            fill: '#E42',
+                            outline: 'none',
+                          },
+                        }}
+                      />
+                    ))
                   }
                 </Geographies>
                 {markers.map(({ name, coordinates, markerOffset, id }) => (
