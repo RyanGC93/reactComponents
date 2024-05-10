@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import "./LoginPage.css"; // Import CSS file for styling
+import "./LoginPage.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import Modal from "../Modal/Modal";
-
-const demoUser = process.env.REACT_APP_DEMO_USER;
-const demoPassword = process.env.REACT_APP_DEMO_PASSWORD;
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -15,7 +12,6 @@ function LoginPage() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-
   const showErrorModal = (error) => {
     setErrorMessage(error);
     setModalOpen(true);
@@ -23,21 +19,22 @@ function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Here you can add login functionality
+    console.log("Logging in with:", username, password);
     signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
         navigate("/");
-        console.log(user);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        showErrorModal(errorMessage);
-        console.log(errorCode, errorMessage);
+        showErrorModal(error.message);
+        console.error(error.code, error.message);
       });
-    console.log("Logging in with:", username, password);
+  };
+
+  const handleDemoLogin = (e) => {
+    e.preventDefault();
+    setUsername(process.env.REACT_APP_DEMO_USER);
+    setPassword(process.env.REACT_APP_DEMO_PASSWORD);
+    handleLogin(e);
   };
 
   return (
@@ -47,7 +44,6 @@ function LoginPage() {
         alt="Woman holding yellow petaled flowers"
         className="login-image"
       />
-
       <form className="login-form" onSubmit={handleLogin}>
         <h2>Login</h2>
         <div className="form-group">
@@ -68,24 +64,11 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
+        <button type="submit">Login</button>
         <div className="or-separator"></div>
-        <button
-          type="submit"
-          onClick={(e) => {
-            setUsername(demoUser);
-            setPassword(demoPassword);
-            handleLogin(e);
-          }}
-        >
-          {" "}
-          Demo Login
-        </button>
+        <button onClick={handleDemoLogin}>Demo Login</button>
         <h3>
-          {" "}
-          Don't have an account? <a href="/signup">Sign Up</a>
+          Don't have an account? <NavLink to="/signup">Sign Up</NavLink>
         </h3>
       </form>
       <Modal isOpen={isModalOpen} close={() => setModalOpen(false)}>
