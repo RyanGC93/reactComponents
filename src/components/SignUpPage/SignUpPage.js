@@ -3,9 +3,18 @@ import "./SignUpPage.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
+import Modal from "../Modal/Modal";
 
 function SignUpPage() {
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const showErrorModal = (error) => {
+    setErrorMessage(error);
+    setModalOpen(true);
+  };
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,6 +32,7 @@ function SignUpPage() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        showErrorModal(errorMessage);
         console.log(errorCode, errorMessage);
         // ..
       });
@@ -56,6 +66,10 @@ function SignUpPage() {
           Already have an account? Log In
         </NavLink>
       </form>
+      <Modal isOpen={isModalOpen} close={() => setModalOpen(false)}>
+        <h2>Error</h2>
+        <p>{errorMessage}</p>
+      </Modal>
     </div>
   );
 }
