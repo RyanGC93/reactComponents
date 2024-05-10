@@ -1,15 +1,15 @@
-const firebaseApiKey = `${process.env.REACT_APP_FIREBASE_API_KEY}`;
-const firebaseAppId = `${process.env.REACT_APP_FIREBASE_APP_ID}`;
-const firebaseAuthDomain = `${process.env.REACT_APP_FIREBASE_AUTH_DOMAIN}`;
-const firebaseMeasurementId = `${process.env.REACT_APP_FIREBASE_MEASUREMENT_ID}`;
-const firebaseMessagingSenderId = `${process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID}`;
-const firebaseProjectId = `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`;
-const firebaseStorageBucket = `${process.env.REACT_APP_FIREBASE_STORAGE_BUCKET}`;
+const firebaseApiKey = `${process.env.REACT_APP_FIREBASE_API_KEY}`
+const firebaseAppId = `${process.env.REACT_APP_FIREBASE_APP_ID}`
+const firebaseAuthDomain = `${process.env.REACT_APP_FIREBASE_AUTH_DOMAIN}`
+const firebaseMeasurementId = `${process.env.REACT_APP_FIREBASE_MEASUREMENT_ID}`
+const firebaseMessagingSenderId = `${process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID}`
+const firebaseProjectId = `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`
+const firebaseStorageBucket = `${process.env.REACT_APP_FIREBASE_STORAGE_BUCKET}`
 
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { initializeApp } from 'firebase/app'
+import { getAnalytics } from 'firebase/analytics'
+import { getAuth } from 'firebase/auth'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,12 +23,12 @@ const firebaseConfig = {
   messagingSenderId: firebaseMessagingSenderId,
   appId: firebaseAppId,
   measurementId: firebaseMeasurementId,
-};
+}
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig)
+const analytics = getAnalytics(app)
 
 // Initialize Firebase Authentication and get a reference to the service
-export const auth = getAuth(app);
-export default app;
+export const auth = getAuth(app)
+export default app

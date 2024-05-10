@@ -1,42 +1,42 @@
-import React, { useState } from "react";
-import "./SignUpPage.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../services/firebase";
-import Modal from "../Modal/Modal";
+import React, { useState } from 'react'
+import './SignUpPage.css'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../services/firebase'
+import Modal from '../Modal/Modal'
 
 function SignUpPage() {
-  const navigate = useNavigate();
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate()
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const showErrorModal = (error) => {
-    setErrorMessage(error);
-    setModalOpen(true);
-  };
+    setErrorMessage(error)
+    setModalOpen(true)
+  }
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
+        const user = userCredential.user
+        console.log(user)
+        navigate('/login')
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        showErrorModal(errorMessage);
-        console.log(errorCode, errorMessage);
+        const errorCode = error.code
+        const errorMessage = error.message
+        showErrorModal(errorMessage)
+        console.log(errorCode, errorMessage)
         // ..
-      });
-  };
+      })
+  }
   return (
     <div className="signup-container">
       <h2 className="signup-header">Sign Up</h2>
@@ -71,7 +71,7 @@ function SignUpPage() {
         <p>{errorMessage}</p>
       </Modal>
     </div>
-  );
+  )
 }
 
-export default SignUpPage;
+export default SignUpPage

@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import "./LoginPage.css";
-import { NavLink, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../services/firebase";
-import Modal from "../Modal/Modal";
+import React, { useState } from 'react'
+import './LoginPage.css'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../services/firebase'
+import Modal from '../Modal/Modal'
 
 function LoginPage() {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate()
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const showErrorModal = (error) => {
-    setErrorMessage(error);
-    setModalOpen(true);
-  };
+    setErrorMessage(error)
+    setModalOpen(true)
+  }
 
   const handleLogin = (e) => {
-    e.preventDefault();
-    console.log("Logging in with:", username, password);
+    e.preventDefault()
+    console.log('Logging in with:', username, password)
     signInWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
-        navigate("/");
+        navigate('/')
       })
       .catch((error) => {
-        showErrorModal(error.message);
-        console.error(error.code, error.message);
-      });
-  };
+        showErrorModal(error.message)
+        console.error(error.code, error.message)
+      })
+  }
 
   const handleDemoLogin = (e) => {
-    e.preventDefault();
-    setUsername(process.env.REACT_APP_DEMO_USER);
-    setPassword(process.env.REACT_APP_DEMO_PASSWORD);
-    handleLogin(e);
-  };
+    e.preventDefault()
+    setUsername(process.env.REACT_APP_DEMO_USER)
+    setPassword(process.env.REACT_APP_DEMO_PASSWORD)
+    handleLogin(e)
+  }
 
   return (
     <div className="login-container">
@@ -77,7 +77,7 @@ function LoginPage() {
         <p>Please try again</p>
       </Modal>
     </div>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

@@ -1,5 +1,5 @@
-import React from "react";
-import "./LandingPage.css";
+import React from 'react'
+import './LandingPage.css'
 function LandingPage() {
   return (
     <div className="landing-page">
@@ -32,7 +32,7 @@ function LandingPage() {
         <p>&copy; 2024 My Landing Page</p>
       </footer>
     </div>
-  );
+  )
 }
 
-export default LandingPage;
+export default LandingPage

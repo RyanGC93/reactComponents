@@ -1,24 +1,24 @@
-import React from "react";
-import "./Navbar.css"; // Importing the CSS file for styling
-import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import React from 'react'
+import './Navbar.css' // Importing the CSS file for styling
+import { getAuth, signOut } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
 
 function NavBar() {
-  const auth = getAuth();
-  const navigate = useNavigate();
+  const auth = getAuth()
+  const navigate = useNavigate()
 
   const logout = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        console.log("Logout successful");
-        navigate("/login");
+        console.log('Logout successful')
+        navigate('/login')
       })
       .catch((error) => {
         // An error happened.
-        console.log("Logout failed", error);
-      });
-  };
+        console.log('Logout failed', error)
+      })
+  }
 
   return (
     <nav className="navbar">
@@ -31,7 +31,7 @@ function NavBar() {
         </li>
       </ul>
     </nav>
-  );
+  )
 }
 
-export default NavBar;
+export default NavBar

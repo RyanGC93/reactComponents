@@ -1,16 +1,16 @@
-import "./styles.css";
-import LandingPage from "./components/LandingPage/LandingPage";
-import LoginPage from "./components/LoginPage/LoginPage";
-import SignUpPage from "./components/SignUpPage/SignUpPage";
-import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
-import React, { useState, useEffect, Fragment } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./services/firebase";
-import NavBar from "./components/NavBar/Navbar";
-import { redirect } from "react-router";
-import { AuthProvider } from "./services/AuthContext";
-import ProtectedRoute from "./services/ProtectedRoute";
+import './styles.css'
+import LandingPage from './components/LandingPage/LandingPage'
+import LoginPage from './components/LoginPage/LoginPage'
+import SignUpPage from './components/SignUpPage/SignUpPage'
+import NotFoundPage from './components/NotFoundPage/NotFoundPage'
+import React, { useState, useEffect, Fragment } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from './services/firebase'
+import NavBar from './components/NavBar/Navbar'
+import { redirect } from 'react-router'
+import { AuthProvider } from './services/AuthContext'
+import ProtectedRoute from './services/ProtectedRoute'
 /*
 Need Navbar 
 Need 404 page
@@ -71,5 +71,5 @@ export default function App() {
         </Fragment>
       </AuthProvider>
     </BrowserRouter>
-  );
+  )
 }
