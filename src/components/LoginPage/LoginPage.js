@@ -3,6 +3,7 @@ import "./LoginPage.css"; // Import CSS file for styling
 import { NavLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
+import Modal from "../Modal/Modal";
 
 const demoUser = process.env.REACT_APP_DEMO_USER;
 const demoPassword = process.env.REACT_APP_DEMO_PASSWORD;
@@ -11,6 +12,14 @@ function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+
+  const showErrorModal = (error) => {
+    setErrorMessage(error);
+    setModalOpen(true);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -25,6 +34,7 @@ function LoginPage() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        showErrorModal(errorMessage);
         console.log(errorCode, errorMessage);
       });
     console.log("Logging in with:", username, password);
@@ -78,6 +88,11 @@ function LoginPage() {
           Don't have an account? <a href="/signup">Sign Up</a>
         </h3>
       </form>
+      <Modal isOpen={isModalOpen} close={() => setModalOpen(false)}>
+        <h2>Error</h2>
+        <p>{errorMessage}</p>
+        <p>Please try again</p>
+      </Modal>
     </div>
   );
 }
