@@ -49,11 +49,12 @@ function SignUpPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" 
-        onClick={onSubmit}
-        className="signup-button">
+        <button type="submit" onClick={onSubmit} className="signup-button">
           Sign Up
         </button>
+        <NavLink to="/login" className="signup-link">
+          Already have an account? Log In
+        </NavLink>
       </form>
     </div>
   );

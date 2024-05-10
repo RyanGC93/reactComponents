@@ -4,6 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
+const demoUser = process.env.REACT_APP_DEMO_USER;
+const demoPassword = process.env.REACT_APP_DEMO_PASSWORD;
+
 function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -44,7 +47,6 @@ function LoginPage() {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
         </div>
         <div className="form-group">
@@ -54,14 +56,23 @@ function LoginPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
         </div>
         <button type="submit" onClick={handleLogin}>
           Login
         </button>
         <div className="or-separator"></div>
-        <button type="submit"> Demo Login</button>
+        <button
+          type="submit"
+          onClick={(e) => {
+            setUsername(demoUser);
+            setPassword(demoPassword);
+            handleLogin(e);
+          }}
+        >
+          {" "}
+          Demo Login
+        </button>
         <h3>
           {" "}
           Don't have an account? <a href="/signup">Sign Up</a>
