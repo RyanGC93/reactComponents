@@ -1,35 +1,33 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext"; // your auth context
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { useState, useEffect } from "react";
 import { auth } from "./firebase";
-import { redirect } from "react-router";
 
 const ProtectedRoute = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("uscv er", !user);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
-        console.log("uid", uid);
+        // User is signed in
         setAuthenticated(true);
-        console.log("authenticated", authenticated);
-        setLoaded(true);
-        redirect("/");
       } else {
-        // User is signed out
-        // ...
-        console.log("user is logged out");
+        // User is not signed in
+        setAuthenticated(false);
       }
+      setLoaded(true);
     });
-  }, [loaded, authenticated]);
-  console.log("authenticate 2d", authenticated);
-  return true ? children : <Navigate to="/lofgdfgin" />;
+
+    // Clean up the subscription on unmount
+    return unsubscribe;
+  }, []);
+
+  if (!loaded) {
+    return <div>Loading...</div>; // Optionally, show a loading spinner or similar
+  }
+
+  return authenticated ? children : <Navigate to="/login" />;
 };
+
 export default ProtectedRoute;
