@@ -2,6 +2,7 @@ import "./styles.css";
 import LandingPage from "./components/LandingPage/LandingPage";
 import LoginPage from "./components/LoginPage/LoginPage";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
+import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import React, { useState, useEffect, Fragment } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
@@ -65,6 +66,7 @@ export default function App() {
             />
             <Route path="/login" element={<LoginPage />} exact={true} />
             <Route path="/signup" element={<SignUpPage />} exact={true} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Fragment>
       </AuthProvider>
