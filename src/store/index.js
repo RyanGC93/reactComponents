@@ -1,9 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { thunk } from 'redux-thunk'
-
-// add session
-// add user events
-// remove deprecated code (createStore)
+eateStore)
 
 const rootReducer = combineReducers({
   session: sessionReducer,
