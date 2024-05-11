@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Modal = ({ isOpen, close, children }) => {
+const Modal = ({ isOpen, close, isCorrect, children }) => {
   if (!isOpen) return null
 
   return (
@@ -29,6 +29,12 @@ const Modal = ({ isOpen, close, children }) => {
         <button onClick={close} style={{ marginTop: '10px' }}>
           Close
         </button>
+        {isCorrect =>{
+        <button onClick={close} style={{ marginTop: '10px' }}>
+          Next
+        </button>
+
+        }}
       </div>
     </div>
   )
