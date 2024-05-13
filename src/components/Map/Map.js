@@ -1,14 +1,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import {
-  useZoomPan,
   ComposableMap,
   Geographies,
   Geography,
 } from 'react-simple-maps';
-import MarkerComponent from './markers';
-import Modal from '../Modal/Modal'
+import Modal from '../Modal/Modal';
 
-// coordinates are stored as >> [lon, lat]
 const rounded = (num) => {
   if (num > 1000000000) {
     return Math.round(num / 100000000) / 10 + 'Bn';
@@ -19,82 +16,94 @@ const rounded = (num) => {
   }
 };
 
-const MapChart = ({ setTooltipContent, isChecked }) => {
+const MapChart = ({ setTooltipContent }) => {
   const [geoUrl, setGeoUrl] = useState(null);
-  const [loaded, setLoaded] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [countryList, setCountryList] = useState([]);
+  const [currentCountry, setCurrentCountry] = useState('');
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const showErrorModal = (error) => {
-    setErrorMessage(error)
-    setModalOpen(true)
-  }
+    setErrorMessage(error);
+    setModalOpen(true);
+  };
+
+  const extractCountryNames = (data) => {
+    if (!data || !data.objects || !data.objects.world || !data.objects.world.geometries) {
+      return [];
+    }
+    return data.objects.world.geometries.map(geometry => geometry.properties.name);
+  };
+  const handleLogic = (geo) => {
+    const { name } = geo.properties;
+    console.log(geo, name);
+    if (name === currentCountry) {
+      console.log(`Current country selected: ${name}`);
+      setErrorMessage(`Correct!!!! You Chose: ${name}.`);
+      setModalOpen(true);
+      // Update to a new country
+      const newCountryIndex = Math.floor(Math.random() * countryList.length);
+      setCurrentCountry(countryList[newCountryIndex]);
+    } else {
+      setErrorMessage(`INCORRECT You Chose: ${name}. Try Again`);
+      setModalOpen(true);
+      console.log(`Different country selected: ${name}`);
+    }
+  };
+  
 
   useEffect(() => {
     import('./features.json')
       .then((data) => {
         setGeoUrl(data.default);
-        setLoaded(true); // Indicate that the data is loaded
+        const countries = extractCountryNames(data.default);
+        setCountryList(countries);
+        if (countries.length > 0) {
+          setCurrentCountry(countries[Math.floor(Math.random() * countries.length)]); // Random initial country
+        }
       })
       .catch((error) => {
         console.error('Error loading JSON:', error);
-        setLoaded(false);
+        showErrorModal('Failed to load map data.');
       });
   }, []);
-
-  let markers = []; // Ensure markers is defined even if not populated
 
   return (
     <>
       <div>
         <ComposableMap data-tip="" projectionConfig={{ scale: 220 }}>
-          {loaded && geoUrl && (
+          {geoUrl && (
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
-                geographies.map((geo) => (
+                geographies.map(geo => (
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
                     onClick={() => {
-                      const { NAME, POP_EST } = geo.properties;
-                      setTooltipContent(`${NAME} - Population: ${rounded(POP_EST)}`);
+                      handleLogic(geo);
+                      const { POP_EST } = geo.properties;
+                      setTooltipContent(`${currentCountry} - Population: ${rounded(POP_EST)}`);
                     }}
-                    onMouseLeave={() => {
-                      setTooltipContent('');
-                    }}
+                    onMouseLeave={() => setTooltipContent('')}
                     style={{
-                      default: {
-                        fill: '#D6D6DA',
-                        outline: 'none',
-                      },
-                      hover: {
-                        fill: '#F53',
-                        outline: 'none',
-                      },
-                      pressed: {
-                        fill: '#E42',
-                        outline: 'none',
-                      },
+                      default: { fill: '#D6D6DA', outline: 'none' },
+                      hover: { fill: '#F53', outline: 'none' },
+                      pressed: { fill: '#E42', outline: 'none' }
                     }}
                   />
                 ))
               }
             </Geographies>
           )}
-          {markers.map(({ name, coordinates, markerOffset, id }) => (
-            <MarkerComponent
-              key={id}
-              name={name}
-              coordinates={coordinates}
-              markerOffset={markerOffset}
-            />
-          ))}
         </ComposableMap>
-        <Modal isOpen={
-          
-          isModalOpen} close={() => setModalOpen(false)}>
-              
-      </Modal>
+        {currentCountry && 
+
+        <h1 className="countryName">Where is {currentCountry}?</h1>
+        }
+        <Modal isOpen={isModalOpen} close={() => setModalOpen(false)}>
+          <p>{errorMessage}</p>
+
+        </Modal>
       </div>
     </>
   );
