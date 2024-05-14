@@ -71,6 +71,10 @@ const MapChart = ({ setTooltipContent }) => {
   return (
     <>
       <div>
+            {currentCountry && 
+
+        <h1 className="countryName">Where is {currentCountry}?</h1>
+        }
         <ComposableMap data-tip="" projectionConfig={{ scale: 220 }}>
           {geoUrl && (
             <Geographies geography={geoUrl}>
@@ -96,10 +100,7 @@ const MapChart = ({ setTooltipContent }) => {
             </Geographies>
           )}
         </ComposableMap>
-        {currentCountry && 
 
-        <h1 className="countryName">Where is {currentCountry}?</h1>
-        }
         <Modal isOpen={isModalOpen} close={() => setModalOpen(false)}>
           <p>{errorMessage}</p>
 
