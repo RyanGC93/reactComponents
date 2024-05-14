@@ -39,8 +39,13 @@ function SignUpPage() {
   }
   return (
     <div className="signup-container">
-      <h2 className="signup-header">Sign Up</h2>
+        <img
+        src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGxhbnRpbmd8ZW58MHx8MHx8fDA%3D"
+        alt="Woman holding yellow petaled flowers"
+        className="login-image"
+      />
       <form className="signup-form">
+      <h2 >Sign Up</h2>
         <input type="text" placeholder="Name" className="signup-input" />
         <input
           type="email"

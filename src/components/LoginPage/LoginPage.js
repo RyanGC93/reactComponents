@@ -3,6 +3,7 @@ import './LoginPage.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../services/firebase'
+import GoogleSignIn from '../../services/googleSignIn'
 import Modal from '../Modal/Modal'
 
 function LoginPage() {
@@ -40,7 +41,7 @@ function LoginPage() {
   return (
     <div className="login-container">
       <img
-        src="https://images.unsplash.com/photo-1505455184862-554165e5f6ba?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGxhbnRpbmd8ZW58MHx8MHx8fDA%3D"
         alt="Woman holding yellow petaled flowers"
         className="login-image"
       />
@@ -65,8 +66,8 @@ function LoginPage() {
           />
         </div>
         <button type="submit">Login</button>
+        <GoogleSignIn />
         <div className="or-separator"></div>
-        <button onClick={handleDemoLogin}>Demo Login</button>
         <h3>
           Don't have an account? <NavLink to="/signup">Sign Up</NavLink>
         </h3>
