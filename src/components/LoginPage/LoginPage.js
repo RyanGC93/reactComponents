@@ -3,13 +3,12 @@ import './LoginPage.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../services/firebase'
-import GoogleSignIn from '../../services/googleSignIn'
 import Modal from '../Modal/Modal'
 
 function LoginPage() {
   const navigate = useNavigate()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('demo@demo.com')
+  const [password, setPassword] = useState('password')
   const [isModalOpen, setModalOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -22,7 +21,7 @@ function LoginPage() {
     e.preventDefault()
     console.log('Logging in with:', username, password)
     signInWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
+      .then(() => {
         navigate('/')
       })
       .catch((error) => {
@@ -66,7 +65,6 @@ function LoginPage() {
           />
         </div>
         <button type="submit">Login</button>
-        <GoogleSignIn />
         <div className="or-separator"></div>
         <h3>
           Don't have an account? <NavLink to="/signup">Sign Up</NavLink>

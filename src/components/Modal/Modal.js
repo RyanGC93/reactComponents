@@ -1,5 +1,4 @@
 import React from 'react'
-
 const Modal = ({ isOpen, close, children }) => {
   if (!isOpen) return null
 
